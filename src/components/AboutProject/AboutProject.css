@@ -1,0 +1,128 @@
+.about-project-wrapper {
+  padding: 110px 0;
+}
+
+.about-project {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 70px;
+}
+
+.about-project__title-container {
+  border-bottom: 1px solid #000;
+}
+
+.about-project__title {
+  margin: 0;
+  padding: 0 0 23px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.23;
+  letter-spacing: -0.04em;
+}
+
+.about-project-content {
+  margin: 0;
+  padding: 70px 0 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 40px;
+}
+
+.about-project-content__title {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+
+.about-project-content__text {
+  margin: 0;
+  padding-top: 26px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.43;
+  max-width: 500px;
+}
+
+.about-project-chart {
+  padding-top: 110px;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+.about-project-chart__part {
+  padding: 9px 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+}
+
+.about-project-chart__part--green {
+  background-color: #2be080;
+  color: #000;
+}
+
+.about-project-chart__part--gray {
+  background-color: #f2f2f2;
+  color: #000;
+}
+
+.about-project-chart__text {
+  padding-top: 14px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+  color: #a0a0a0;
+}
+
+@media (max-width: 1279px) {
+  .about-project-wrapper {
+    padding: 90px 0;
+  }
+
+  .about-project {
+    padding: 0 50px;
+  }
+}
+
+@media (max-width: 767px) {
+  .about-project-wrapper {
+    padding: 70px 0;
+  }
+
+  .about-project {
+    padding: 0 18px;
+  }
+
+  .about-project-content {
+    grid-template-columns: 1fr;
+    grid-gap: 56px;
+    padding: 60px 0 0;
+  }
+
+  .about-project-content__text {
+    padding-top: 16px;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .about-project-chart {
+    padding-top: 60px;
+  }
+
+  .about-project-chart__part,
+  .about-project-chart__text {
+    font-size: 11px;
+    line-height: 1.21;
+  }
+}

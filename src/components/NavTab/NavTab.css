@@ -1,0 +1,43 @@
+.nav {
+  margin: 0;
+  padding: 0;
+  min-height: 66px;
+  background-color: #000;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav__item {
+  margin-right: 40px;
+}
+
+.nav__item:last-child {
+  margin-right: 0;
+}
+
+.nav__link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.23;
+  text-decoration-line: underline;
+  color: #fff;
+  transition: opacity .3s;
+}
+
+.nav__link:hover {
+  opacity: .7;
+}
+
+@media (max-width: 767px) {
+  .nav__link {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .nav__item {
+    margin-right: 24px;
+  }
+}

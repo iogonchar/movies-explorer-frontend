@@ -1,0 +1,13 @@
+.register-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 240px);
+  padding-top: 50px;
+}
+
+.register {
+  max-width: 396px;
+  padding: 0 30px;
+  width: 100%;
+}
