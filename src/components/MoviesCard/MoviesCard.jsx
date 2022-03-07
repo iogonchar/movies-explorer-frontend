@@ -21,20 +21,19 @@ const MoviesCard = ({ isSavedMovies }) => {
           isSavedMovies
             ? (
               <button className="card__button">
-                <img src={ remove } alt="Удалить" />
+                <img src={ remove } className="card__button-icon" alt="Удалить" />
               </button>
             )
             : (
               <button className="card__button" onClick={ handleClickLike }>
                 {
                   isLiked
-                    ? ( <img src={ liked } alt="Убрать лайк" /> )
-                    : ( <img src={ notLiked } alt="Поставить лайк" /> )
+                    ? ( <img src={ liked } className="card__button-icon" alt="Убрать лайк" /> )
+                    : ( <img src={ notLiked } className="card__button-icon" alt="Поставить лайк" /> )
                 }
               </button>
             )
         }
-
       </div>
       <p className="card__duration">1ч 42м</p>
     </div>

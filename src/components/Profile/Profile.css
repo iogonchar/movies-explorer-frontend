@@ -41,6 +41,7 @@
 }
 
 .profile-form__input {
+  background-color: transparent;
   padding: 0;
   text-align: right;
   font-style: normal;
@@ -49,6 +50,7 @@
   line-height: 13px;
   border: none;
   outline: none;
+  color: #fff;
 }
 
 .profile__buttons {
@@ -74,10 +76,14 @@
   opacity: .7;
 }
 
+.profile__button--type-edit {
+  color: #fff;
+}
+
 .profile__button--type-exit {
   margin-top: 16px;
   font-weight: 500;
-  color: #ff004d;
+  color: #EE3465;
 }
 
 @media (max-width: 767px) {

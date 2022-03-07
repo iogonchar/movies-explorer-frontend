@@ -37,7 +37,6 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 1.11;
-  color: #111111;
 }
 
 .about-me-info__text {
@@ -70,7 +69,7 @@
   font-size: 14px;
   line-height: 1.21;
   text-decoration: none;
-  color: #000;
+  color: #fff;
   transition: opacity .3s;
 }
 

@@ -1,22 +1,22 @@
 .promo {
-  background-color: #073042;
-  min-height: calc(100vh - 140px);
+  min-height: 520px;
+  padding: 20px 40px 0 40px;
 }
 
 .promo-bg {
-  min-height: inherit;
-  background-image: url(../../images/promo-bg.svg);
-  background-repeat: no-repeat;
-  background-size: 320px 320px;
-  background-position: center;
+  min-height: 500px;
+  background-color: #272727;
+  border-radius: 10px;
+  padding-bottom: 30px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .promo__title {
-  padding: 0 10px;
-  margin: 0;
+  margin: auto 0 0;
+  padding: 0 5px;
   max-width: 730px;
   font-style: normal;
   font-weight: 400;
@@ -24,6 +24,7 @@
   line-height: 1.16;
   color: #fff;
   text-align: center;
+  letter-spacing: -0.04em;
 }
 
 @media (max-width: 767px) {
@@ -31,7 +32,15 @@
     font-size: 31px;
     line-height: 1.26;
   }
-  .promo-bg {
-    background-size: 248px 248px;
+}
+
+@media (max-width: 467px) {
+  .promo__title {
+    font-size: 29px;
+    line-height: 1.27;
+  }
+
+  .promo {
+    padding: 20px 14px 0 14px;
   }
 }

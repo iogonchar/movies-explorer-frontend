@@ -20,7 +20,7 @@
 }
 
 .cards-load-more__text {
-  background-color: #f9f9f9;
+  background-color: #2F2F2F;
   padding: 10px 0;
   width: 100%;
   border: none;
@@ -33,6 +33,7 @@
   line-height: 1.25;
   cursor: pointer;
   transition: opacity .3s;
+  color: #fff;
 }
 
 .cards-load-more__text:hover {

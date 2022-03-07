@@ -1,11 +1,6 @@
-.header-wrapper {
-  background-color: #073042;
-  min-height: 74px;
-}
-
 .header {
   max-width: 1280px;
-  min-height: inherit;
+  min-height: 74px;
   margin: 0 auto;
   padding: 0 70px;
   display: flex;
@@ -18,12 +13,18 @@
   width: 38px;
 }
 
+.header-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .header-auth__signup,
 .header-auth__link,
 .header-auth__profile {
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.33;
   margin-right: 30px;
   text-decoration: none;
@@ -31,27 +32,27 @@
 }
 
 .header-auth__profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  margin-left: 20px;
   margin-right: 0;
-  padding: 4px 12px;
-  border: 2px solid #fff;
-  border-radius: 20px;
   text-align: center;
 }
 
 .header-auth__profile-img {
-  margin-bottom: -2px;
-  margin-right: 8px;
   text-align: center;
 }
 
 .header-auth__profile-text {
-  margin-right: 0;
+  margin-right: 13px;
 }
 
 .header-auth__signin {
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.33;
   color: #000;
   background-color: #2be080;
@@ -64,6 +65,7 @@
   display: none;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .small-nav__hamburger--close {
@@ -79,7 +81,7 @@
   height: 3px;
   width: 22px;
   transform: rotate(45deg);
-  background-color: #000;
+  background-color: #fff;
 }
 
 .small-nav__close::after {
@@ -88,7 +90,7 @@
   height: 3px;
   width: 22px;
   transform: rotate(90deg);
-  background-color: #000;
+  background-color: #fff;
 }
 
 .small-nav__hamburger--open {
@@ -184,25 +186,20 @@
     flex-direction: column;
     min-width: 520px;
     min-height: 100vh;
-    background-color: #fff;
+    background-color: #202020;
   }
 
   .header-auth__link {
     margin: 0;
-    color: #000;
     font-size: 18px;
     line-height: 1.22;
     margin-bottom: 28px;
   }
 
   .header-auth__profile {
-    border-color: #000;
     margin: auto 0 92px 0;
   }
 
-  .header-auth__profile-text {
-    color: #000;
-  }
 }
 
 @media (max-width: 767px) {

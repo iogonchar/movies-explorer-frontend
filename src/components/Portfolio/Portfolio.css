@@ -1,11 +1,7 @@
-.portfolio-wrapper {
-  padding: 100px 0;
-}
-
 .portfolio {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 70px;
+  padding: 0 70px 125px;
 }
 
 .portfolio__title {
@@ -51,7 +47,7 @@
   font-size: 30px;
   line-height: 1.67;
   letter-spacing: -0.04em;
-  color: #000;
+  color: #fff;
 }
 
 .portfolio-links__arrow {
@@ -61,7 +57,7 @@
   font-size: 30px;
   line-height: 2;
   letter-spacing: -0.04em;
-  color: #000;
+  color: #fff;
 }
 
 @media (max-width: 1279px) {
