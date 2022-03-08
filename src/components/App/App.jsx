@@ -12,23 +12,23 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import './App.css';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <div className="app">
-      <Header isLoggedIn={ isLoggedIn } />
+      {/* <Header isLoggedIn={ isLoggedIn } /> */}
 
       <Switch>
         <Route exact path='/'>
-          <Main />
+          <Main isLoggedIn={ isLoggedIn } />
         </Route>
 
         <Route path="/movies">
-          <Movies />
+          <Movies isLoggedIn={ isLoggedIn } />
         </Route>
 
         <Route path="/saved-movies">
-          <SavedMovies />
+          <SavedMovies isLoggedIn={ isLoggedIn } />
         </Route>
 
         <Route path='/profile'>
@@ -48,7 +48,7 @@ const App = () => {
         </Route>
       </Switch>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

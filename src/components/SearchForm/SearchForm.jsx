@@ -6,7 +6,7 @@ const SearchForm = () => {
   return (
     <section className="search">
       <form name="search" className="search-form">
-        <input className="search-form__input" placeholder="Фильм"/>
+        <input className="search-form__input" placeholder="Фильм" required />
         <button className="search-form__search-btn">
           <img className="search-form__search-btn-img" src={ searchIcon } alt="Искать"/>
         </button>

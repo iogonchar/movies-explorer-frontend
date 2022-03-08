@@ -61,6 +61,12 @@
   opacity: .7;
 }
 
+.search-form__search-btn-img {
+  width: 44px;
+  height: 44px;
+  padding: 7px;
+}
+
 .search-filter {
   margin-top: 29px;
   display: flex;

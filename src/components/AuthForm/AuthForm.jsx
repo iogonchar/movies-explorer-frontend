@@ -4,7 +4,7 @@ import './AuthForm.css'
 const AuthForm = ({ formTitle, children, submitText, linkTo, linkDescriptionText, linkText }) => {
   return (
     <>
-      <h2 className="login__title">{ formTitle }</h2>
+      <h2 className="form__title">{ formTitle }</h2>
       <form className="form">
         { children }
 

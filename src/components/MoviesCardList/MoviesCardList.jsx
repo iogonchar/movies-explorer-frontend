@@ -16,9 +16,14 @@ const MoviesCardList = ({ isSavedMovies }) => {
         <MoviesCard isSavedMovies={ isSavedMovies } />
         <MoviesCard isSavedMovies={ isSavedMovies } />
       </div>
-      <div className="cards-load-more">
-        <button className="cards-load-more__text" type="button">Ещё</button>
-      </div>
+      {
+        !isSavedMovies && (
+          <div className="cards-load-more">
+            <button className="cards-load-more__text" type="button">Ещё</button>
+          </div>
+        )
+      }
+
     </section>
   );
 }

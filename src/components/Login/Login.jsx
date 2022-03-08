@@ -7,7 +7,7 @@ const Login = () => {
   return (
     <section className="login-wrapper">
       <div className="login">
-        <img src={logo} alt="Логотип"/>
+        <img className="login__logo" src={logo} alt="Логотип"/>
 
         <AuthForm
           formTitle="Рады видеть!"

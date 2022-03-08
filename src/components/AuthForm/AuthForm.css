@@ -52,6 +52,13 @@
 .form__link:hover {
   opacity: .7;
 }
+
+@media (max-width: 767px) {
+  .form__title {
+    align-self: center;
+  }
+}
+
 @media (max-width: 468px) {
   .form__text {
     font-size: 12px;

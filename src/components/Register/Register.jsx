@@ -7,7 +7,7 @@ const Register = () => {
   return (
     <section className="register-wrapper">
       <div className="register">
-        <img src={logo} alt="Логотип"/>
+        <img className="register__logo" src={logo} alt="Логотип"/>
 
         <AuthForm
           formTitle="Добро пожаловать!"

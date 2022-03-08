@@ -1,8 +1,16 @@
+import Footer from '../Footer/Footer';
+import Header from '../Header/Header';
+import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-const SavedMovies = () => {
+const SavedMovies = ({ isLoggedIn }) => {
   return (
-    <MoviesCardList isSavedMovies={ true } />
+    <>
+      <Header isLoggedIn={ isLoggedIn } />
+      <SearchForm />
+      <MoviesCardList isSavedMovies={ true } />
+      <Footer />
+    </>
   );
 }
 

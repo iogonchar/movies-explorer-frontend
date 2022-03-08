@@ -25,7 +25,9 @@ const Header = ({ isLoggedIn }) => {
             <>
               <div className={ `small-nav ${ isMenuOpen ? 'small-nav--visible' : '' } `}>
                 <nav className="header-menu">
-                  <NavLink to="/" className="header-auth__link">Главная</NavLink>
+                  {
+                    isMenuOpen && ( <NavLink to="/" className="header-auth__link">Главная</NavLink> )
+                  }
                   <NavLink to="/movies" className="header-auth__link">Фильмы</NavLink>
                   <NavLink to="/saved-movies" className="header-auth__link">Сохранённые фильмы</NavLink>
                   <NavLink to="/profile" className="header-auth__profile">

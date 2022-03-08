@@ -79,6 +79,7 @@
 
 @media (max-width: 767px) {
   .techs-wrapper {
+    background-color: #202020;
     padding: 70px 0;
   }
 
