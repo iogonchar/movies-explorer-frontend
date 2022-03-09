@@ -1,9 +1,24 @@
 import AuthForm from '../AuthForm/AuthForm';
 import AuthFormInput from '../AuthFormInput/AuthFormInput';
 import logo from '../../images/logo.svg';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 import './Register.css'
 
-const Register = () => {
+const Register = ({ onRegisterSubmit }) => {
+  const {
+    values,
+    errors,
+    isValid,
+    handleChange,
+    resetForm,
+  } = useFormWithValidation({})
+
+  const handleRegisterSubmit = (evt) => {
+    evt.preventDefault();
+    onRegisterSubmit(values);
+    resetForm()
+  }
+
   return (
     <section className="register-wrapper">
       <div className="register">
@@ -15,12 +30,19 @@ const Register = () => {
           linkTo="signin"
           linkDescriptionText="Уже зарегистрированы?"
           linkText="Войти"
+          isFormValid={ isValid }
+          handleSubmit={ handleRegisterSubmit }
         >
           <AuthFormInput
             id="name"
             title="Имя"
             type="text"
             placeholder="Введите имя"
+            minLength="2"
+            maxLength="30"
+            value={ values.name || '' }
+            errorText={ errors.name }
+            onChange={ handleChange }
           />
 
           <AuthFormInput
@@ -28,6 +50,11 @@ const Register = () => {
             title="E-mail"
             type="email"
             placeholder="Введите E-mail"
+            minLength="5"
+            maxLength="100"
+            value={ values.email || '' }
+            errorText={ errors.email }
+            onChange={ handleChange }
           />
 
           <AuthFormInput
@@ -35,6 +62,10 @@ const Register = () => {
             title="Пароль"
             type="password"
             placeholder="Введите пароль"
+            minLength="8"
+            value={ values.password || '' }
+            errorText={ errors.password }
+            onChange={ handleChange }
           />
         </AuthForm>
       </div>

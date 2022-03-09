@@ -1,5 +1,6 @@
 .cards-wrapper {
   padding-top: 70px;
+  min-height: 50vh;
 }
 
 .cards {

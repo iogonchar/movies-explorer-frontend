@@ -1,6 +1,6 @@
 import './AuthFormInput.css';
 
-const AuthFormInput = ({ id, title, type, placeholder }) => {
+const AuthFormInput = ({ id, title, type, placeholder, minLength, maxLength, value, errorText, onChange }) => {
   return (
     <article className="form__field">
       <label className="form__label" for={ id }>{ title }</label>
@@ -10,8 +10,15 @@ const AuthFormInput = ({ id, title, type, placeholder }) => {
         type={ type }
         name={ id }
         placeholder={ placeholder }
+        minLength={ minLength }
+        maxLength={ maxLength }
+        value={ value }
+        onChange={ onChange }
         required
       />
+      <span className={`form__input-error ${ errorText && 'form__input-error--visible' }`}>
+        { errorText }
+      </span>
     </article>
   );
 }

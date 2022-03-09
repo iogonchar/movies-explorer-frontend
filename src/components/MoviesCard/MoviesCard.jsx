@@ -1,33 +1,47 @@
 import { useState } from 'react';
 import './MoviesCard.css';
-import card from '../../images/card.jpg';
 import remove from '../../images/remove.svg';
 import liked from '../../images/liked.svg';
 import notLiked from '../../images/not-liked.svg';
 
-const MoviesCard = ({ isSavedMovies }) => {
-  const [isLiked, setIsLiked] = useState(false);
+const MoviesCard = ({ isSavedMovies, movie, onClickLike, isMovieSaved  }) => {
+  const { nameRU, duration, trailer, image } = movie;
+
+  const getDuration = (duration) => {
+    const hours = Math.trunc(duration / 60)
+    const minutes = duration % 60
+    return `${ hours > 0 ? hours + 'ч ' : '' }${ minutes }м`
+  }
+
+  const isSaved = isMovieSaved(movie);
 
   const handleClickLike = () => {
-    setIsLiked(!isLiked);
+    onClickLike(movie, !isSaved)
+  }
+
+  const handleClickDelete = () => {
+    console.log('delete');
+    onClickLike(movie, false)
   }
 
   return (
     <div className="card">
-      <img className="card__img" src={ card } alt="Постер"/>
+      <a href={ trailer } target="_blank">
+        <img className="card__img" src={ image } alt="Постер"/>
+      </a>
       <div className="card-description">
-        <h2 className="card__title">Gimme Danger: История Игги и The Stooges</h2>
+        <h2 className="card__title">{ nameRU }</h2>
         {
           isSavedMovies
             ? (
-              <button className="card__button">
+              <button className="card__button" onClick={ handleClickDelete }>
                 <img src={ remove } className="card__button-icon" alt="Удалить" />
               </button>
             )
             : (
               <button className="card__button" onClick={ handleClickLike }>
                 {
-                  isLiked
+                  isSaved
                     ? ( <img src={ liked } className="card__button-icon" alt="Убрать лайк" /> )
                     : ( <img src={ notLiked } className="card__button-icon" alt="Поставить лайк" /> )
                 }
@@ -35,7 +49,7 @@ const MoviesCard = ({ isSavedMovies }) => {
             )
         }
       </div>
-      <p className="card__duration">1ч 42м</p>
+      <p className="card__duration">{ getDuration(duration) }</p>
     </div>
   );
 }
