@@ -51,8 +51,6 @@ const MoviesCardList = ({ isSavedMovies, onClickLike, movies, isMovieSaved }) =>
     setRenderCount(count);
   }, [movies])
 
-  console.log(renderMovies);
-
   return (
     <section className="cards-wrapper">
       {

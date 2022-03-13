@@ -111,6 +111,7 @@ const App = () => {
       })
   }
 
+  // ----------------------------------------
   const getInitialMovies = () => {
     moviesApi.getMovies()
       .then((res) => {
@@ -132,12 +133,8 @@ const App = () => {
 
   const getSavedMovies = () => {
     api.getMovies()
-      .then((data) => {
-        const savedMovies = data.map((item) => {
-          return { ...item, id: toString(item.movieId) }
-        })
-        localStorage.setItem('savedMovies', JSON.stringify(savedMovies))
-        setSavedMovies(savedMovies)
+      .then((movies) => {
+        setSavedMovies(movies);
       })
       .catch((err) => {
         console.log(err)
@@ -150,11 +147,6 @@ const App = () => {
       const filterMovies = movies.filter((item) => {
         return regex.test(item.nameRU) || regex.test(item.nameEN);
       })
-      // if (filterData.length === 0) {
-      //   setLoadingError('Ничего не найдено')
-      // } else {
-      //   setLoadingError('')
-      // }
       return filterMovies;
     }
     return []
@@ -190,14 +182,23 @@ const App = () => {
   }
 
   const deleteMovie = (movie) => {
-    const movieId = savedMovies.find((item) => item.id === movie.id)._id;
+    console.log(savedMovies)
+    const movieId = savedMovies.find((item) => {
+      return item._id === movie._id
+    })._id;
 
     api.deleteMovie(movieId)
       .then((res) => {
         if (res) {
-          const updatedSavedMovies = savedMovies.filter((item) => item.movieId !== movie.id)
+          const updatedSavedMovies = savedMovies.filter((item) => {
+            return item._id !== movie._id
+          })
 
-          setSavedMovies(updatedSavedMovies)
+          setSavedMovies(updatedSavedMovies);
+
+          if (query) {
+            setFilterSavedMovies(filter(updatedSavedMovies, query))
+          }
         }
       })
       .catch((err) => {
@@ -246,11 +247,7 @@ const App = () => {
       getInitialMovies();
     }
 
-    if (JSON.parse(localStorage.getItem('savedMovies'))) {
-      setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')))
-    } else {
-      getSavedMovies()
-    }
+    getSavedMovies();
   }, []);
 
   useEffect(() => {
@@ -259,11 +256,6 @@ const App = () => {
       getSavedMovies();
     }
   }, [isLoggedIn])
-
-  useEffect(() => {
-    setFilterSavedMovies(filter(savedMovies, query))
-    localStorage.setItem('savedMovies', JSON.stringify(savedMovies))
-  }, [savedMovies])
 
   return (
     <div className="app">
@@ -291,7 +283,8 @@ const App = () => {
             isLoading={ isLoading }
             onSearchSubmit={ onSearchSavedFilmsSubmit }
             onClickLike={ onClickLike }
-            movies={ filterSavedMovies }
+            // movies={ filterSavedMovies }
+            movies={ filterSavedMovies.length === 0 ? savedMovies : filterSavedMovies }
             isMovieSaved={ isMovieSaved }
             component={ SavedMovies }
           />
