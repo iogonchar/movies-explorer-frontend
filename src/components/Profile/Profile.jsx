@@ -14,7 +14,12 @@ const Profile = ({ onSignOut, onProfileUpdate }) => {
     isValid,
     handleChange,
     resetForm,
-  } = useFormWithValidation({})
+  } = useFormWithValidation({});
+
+  const isNameChanged = !(values.name === currentUser.name) && !(values.name === undefined);
+  const isEmailChanged = !(values.email === currentUser.email) && !(values.email === undefined);
+  const isChangedValue = isNameChanged || isEmailChanged;
+  const isFormValid = isValid && isChangedValue;
 
   const handleSignOut = () => {
     onSignOut();
@@ -43,11 +48,17 @@ const Profile = ({ onSignOut, onProfileUpdate }) => {
               type="text"
               name="name"
               placeholder="Имя"
+              minLength="2"
+              maxLength="30"
               pattern="[a-zA-Z -]{2,30}"
               value={ (values.name || values.name === '') ? values.name : currentUser.name }
               onChange={ handleChange }
+              required
             />
           </article>
+          <span className="profile__input-error">
+              {errors.name}
+          </span>
 
           <article className="profile-form__field">
             <label className="profile-form__label" for="name">Почта</label>
@@ -63,9 +74,12 @@ const Profile = ({ onSignOut, onProfileUpdate }) => {
               onChange={ handleChange }
             />
           </article>
+          <span className="profile__input-error">
+              {errors.email}
+          </span>
 
           <div className="profile__buttons">
-            <button className="profile__button profile__button--type-edit" type="submit">Редактировать</button>
+            <button className={ `profile__button profile__button--type-edit  ${ isFormValid ? '' : 'profile__button--type-edit-disabled' }` } type="submit" disabled={ !isFormValid }>Редактировать</button>
             <button className="profile__button profile__button--type-exit" onClick={ handleSignOut }>Выйти из аккаунта</button>
           </div>
         </form>
