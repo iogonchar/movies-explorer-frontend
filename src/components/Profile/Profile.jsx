@@ -24,7 +24,6 @@ const Profile = ({ onSignOut, onProfileUpdate }) => {
     evt.preventDefault();
     const name = values.name ? values.name : currentUser.name;
     const email = values.email ? values.email : currentUser.email;
-    console.log('!!! name', name, 'email', email);
     onProfileUpdate({ name, email });
     resetForm();
   }
@@ -43,9 +42,9 @@ const Profile = ({ onSignOut, onProfileUpdate }) => {
               id="name"
               type="text"
               name="name"
-              placeholder={ currentUser.name }
+              placeholder="Имя"
               pattern="[a-zA-Z -]{2,30}"
-              value={ values.name || '' }
+              value={ (values.name || values.name === '') ? values.name : currentUser.name }
               onChange={ handleChange }
             />
           </article>
@@ -57,10 +56,10 @@ const Profile = ({ onSignOut, onProfileUpdate }) => {
               id="email"
               type="email"
               name="email"
-              placeholder={ currentUser.email }
+              placeholder="Почта"
               minLength="5"
               maxLength="100"
-              value={ values.email || '' }
+              value={ (values.email || values.email === '') ? values.email : currentUser.email }
               onChange={ handleChange }
             />
           </article>
