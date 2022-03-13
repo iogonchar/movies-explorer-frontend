@@ -182,7 +182,6 @@ const App = () => {
   }
 
   const deleteMovie = (movie) => {
-    console.log(savedMovies)
     const movieId = savedMovies.find((item) => {
       return item._id === movie._id
     })._id;
@@ -207,7 +206,7 @@ const App = () => {
       });
   }
 
-  const isMovieSaved = (movie) => (savedMovies.some((item) => item.id === movie.id));
+  const isMovieSaved = (movie) => savedMovies.some((item) => item.movieId === movie.id);
 
   const onClickLike = (movie, isLiked) => {
     if (isLiked) {
