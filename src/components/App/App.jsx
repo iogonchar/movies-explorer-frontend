@@ -304,13 +304,19 @@ const App = () => {
             component={ Profile }
           />
 
-          <Route path='/signup'>
-            <Register onRegisterSubmit={ onRegisterSubmit } />
-          </Route>
+          <ProtectedRoute
+            path="/signup"
+            isLoggedIn={ !isLoggedIn }
+            onRegisterSubmit={ onRegisterSubmit }
+            component={ Register }
+          />
 
-          <Route path='/signin'>
-            <Login onLoginSubmit={ onLoginSubmit } />
-          </Route>
+          <ProtectedRoute
+            path="/signin"
+            isLoggedIn={ !isLoggedIn }
+            onRegisterSubmit={ onRegisterSubmit }
+            component={ Login }
+          />
 
           <Route path='*'>
             <PageNotFound />
