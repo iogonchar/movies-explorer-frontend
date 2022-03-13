@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import './AuthForm.css'
 
 const AuthForm = ({ formTitle, children, submitText, linkTo, linkDescriptionText, linkText, isFormValid, handleSubmit }) => {
-  console.log('!!!', isFormValid);
   return (
     <>
       <h2 className="form__title">{ formTitle }</h2>

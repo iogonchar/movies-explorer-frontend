@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import AuthForm from '../AuthForm/AuthForm';
 import AuthFormInput from '../AuthFormInput/AuthFormInput';
 import logo from '../../images/logo.svg';
@@ -22,7 +23,9 @@ const Register = ({ onRegisterSubmit }) => {
   return (
     <section className="register-wrapper">
       <div className="register">
-        <img className="register__logo" src={logo} alt="Логотип"/>
+        <NavLink to="/" className="header-logo">
+          <img className="register__logo" src={logo} alt="Логотип"/>
+        </NavLink>
 
         <AuthForm
           formTitle="Добро пожаловать!"
