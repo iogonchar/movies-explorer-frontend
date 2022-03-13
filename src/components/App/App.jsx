@@ -314,7 +314,7 @@ const App = () => {
           <ProtectedRoute
             path="/signin"
             isLoggedIn={ !isLoggedIn }
-            onRegisterSubmit={ onRegisterSubmit }
+            onLoginSubmit={ onLoginSubmit }
             component={ Login }
           />
 

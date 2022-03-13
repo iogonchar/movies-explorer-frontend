@@ -51,21 +51,27 @@ const MoviesCardList = ({ isSavedMovies, onClickLike, movies, isMovieSaved }) =>
     setRenderCount(count);
   }, [movies])
 
+  console.log(renderMovies);
+
   return (
     <section className="cards-wrapper">
-      <div className="cards">
-        {
-          renderMovies.map((movie) => (
-            <MoviesCard
-              key={ movie.id }
-              onClickLike={ onClickLike }
-              movie={ movie }
-              isSavedMovies={ isSavedMovies }
-              isMovieSaved={ isMovieSaved }
-            />
-          ))
-        }
-      </div>
+      {
+        renderMovies.length === 0
+        ? (<p className="cards__not-found">Ничего не найдено</p>)
+        : (<div className="cards">
+          {
+            renderMovies.map((movie) => (
+              <MoviesCard
+                key={ movie.id }
+                onClickLike={ onClickLike }
+                movie={ movie }
+                isSavedMovies={ isSavedMovies }
+                isMovieSaved={ isMovieSaved }
+              />
+            ))
+          }
+        </div>)
+      }
       {
         renderCount < movies.length && (
           <div className="cards-load-more">
