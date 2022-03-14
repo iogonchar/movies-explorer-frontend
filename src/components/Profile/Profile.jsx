@@ -65,11 +65,12 @@ const Profile = ({ onSignOut, onProfileUpdate }) => {
             <input
               className="profile-form__input"
               id="email"
-              type="email"
               name="email"
+              type="email"
               placeholder="Почта"
               minLength="5"
               maxLength="100"
+              pattern="/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g"
               value={ (values.email || values.email === '') ? values.email : currentUser.email }
               onChange={ handleChange }
             />

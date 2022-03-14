@@ -22,6 +22,7 @@ const App = () => {
   const [filterMovies, setFilterMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState('');
+  const [savedMoviesQuery, setSavedMoviesQuery] = useState('');
   const [savedMovies, setSavedMovies] = useState([]);
   const [filterSavedMovies, setFilterSavedMovies] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -143,10 +144,11 @@ const App = () => {
 
   const filter = (movies, query) => {
     if (query) {
-      const regex = new RegExp(query, 'gi')
+      const regex = new RegExp(query, 'i')
       const filterMovies = movies.filter((item) => {
-        return regex.test(item.nameRU) || regex.test(item.nameEN);
+        return (regex.test(item.nameRU) || regex.test(item.nameEN));
       })
+
       return filterMovies;
     }
     return []
@@ -164,7 +166,7 @@ const App = () => {
   const onSearchSavedFilmsSubmit = (query) => {
     setIsLoading(true)
     setTimeout(() => {
-      setQuery(query)
+      setSavedMoviesQuery(query)
       setFilterSavedMovies(filter(savedMovies, query))
       setIsLoading(false)
     }, 1000)
@@ -195,8 +197,8 @@ const App = () => {
 
           setSavedMovies(updatedSavedMovies);
 
-          if (query) {
-            setFilterSavedMovies(filter(updatedSavedMovies, query))
+          if (savedMoviesQuery) {
+            setFilterSavedMovies(filter(updatedSavedMovies, savedMoviesQuery))
           }
         }
       })
@@ -256,6 +258,18 @@ const App = () => {
     }
   }, [isLoggedIn])
 
+  useEffect(() => {
+    localStorage.setItem('filterMovies', JSON.stringify(filterMovies))
+  }, [filterMovies])
+
+  const [isRenderShortMovies, setIsRenderShortMovies] = useState(false);
+
+  const onFilterShortMovies = (isCheckboxEnabled) => {
+    setIsRenderShortMovies(isCheckboxEnabled);
+  }
+
+  const filterShortMovies = (movies) => movies.filter((movie) => movie.duration <= 40);
+
   return (
     <div className="app">
       <CurrentUserContext.Provider value={ currentUser }>
@@ -274,6 +288,9 @@ const App = () => {
             movies={ filterMovies }
             isMovieSaved={ isMovieSaved }
             component={ Movies }
+            isRenderShortMovies={ isRenderShortMovies }
+            onFilterShortMovies={ onFilterShortMovies }
+            filterShortMovies={ filterShortMovies }
           />
 
           <ProtectedRoute
@@ -282,8 +299,7 @@ const App = () => {
             isLoading={ isLoading }
             onSearchSubmit={ onSearchSavedFilmsSubmit }
             onClickLike={ onClickLike }
-            // movies={ filterSavedMovies }
-            movies={ filterSavedMovies.length === 0 ? savedMovies : filterSavedMovies }
+            movies={ savedMoviesQuery && filterSavedMovies.length !== 0 ? filterSavedMovies : savedMovies }
             isMovieSaved={ isMovieSaved }
             component={ SavedMovies }
           />

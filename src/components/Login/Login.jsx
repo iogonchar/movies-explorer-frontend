@@ -43,6 +43,7 @@ const Login = ({ onLoginSubmit }) => {
             placeholder="Введите E-mail"
             minLength="5"
             maxLength="100"
+            pattern="/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g"
             value={ values.email || '' }
             errorText={ errors.email }
             onChange={ handleChange }

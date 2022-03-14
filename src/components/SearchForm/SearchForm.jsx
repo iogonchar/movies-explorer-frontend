@@ -3,7 +3,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import searchIcon from '../../images/search-btn.svg';
 import './SearchForm.css'
 
-const SearchForm = ({ onSearchSubmit, onToggleCheckbox }) => {
+const SearchForm = ({ onSearchSubmit, onToggleCheckbox, checked }) => {
   const [query, setQuery] = useState('');
 
   const handleInputChange = (evt) => {
@@ -24,7 +24,7 @@ const SearchForm = ({ onSearchSubmit, onToggleCheckbox }) => {
         </button>
       </form>
       <div className="search-filter">
-        <FilterCheckbox onToggleCheckbox={ onToggleCheckbox } />
+        <FilterCheckbox onToggleCheckbox={ onToggleCheckbox } checked={ checked } />
         <span className="search-filter__text">Короткометражки</span>
       </div>
       <div className="search__line"></div>
