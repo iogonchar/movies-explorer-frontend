@@ -20,7 +20,6 @@ const MoviesCard = ({ isSavedMovies, movie, onClickLike, isMovieSaved  }) => {
   }
 
   const handleClickDelete = () => {
-    console.log('delete');
     onClickLike(movie, false)
   }
 
