@@ -1,6 +1,6 @@
 import './AuthFormInput.css';
 
-const AuthFormInput = ({ id, title, type, placeholder, minLength, maxLength, value, errorText, onChange }) => {
+const AuthFormInput = ({ id, title, type, placeholder, minLength, pattern, maxLength, value, errorText, onChange }) => {
   return (
     <article className="form__field">
       <label className="form__label" for={ id }>{ title }</label>
@@ -13,6 +13,7 @@ const AuthFormInput = ({ id, title, type, placeholder, minLength, maxLength, val
         minLength={ minLength }
         maxLength={ maxLength }
         value={ value }
+        pattern={ pattern }
         onChange={ onChange }
         required
       />

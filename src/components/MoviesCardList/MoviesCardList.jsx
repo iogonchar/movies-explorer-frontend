@@ -60,7 +60,7 @@ const MoviesCardList = ({ isSavedMovies, onClickLike, movies, isMovieSaved }) =>
           {
             renderMovies.map((movie) => (
               <MoviesCard
-                key={ movie.id }
+                key={ movie.id ? movie.id : movie.movieId }
                 onClickLike={ onClickLike }
                 movie={ movie }
                 isSavedMovies={ isSavedMovies }

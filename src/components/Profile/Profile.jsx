@@ -70,7 +70,7 @@ const Profile = ({ onSignOut, onProfileUpdate }) => {
               placeholder="Почта"
               minLength="5"
               maxLength="100"
-              pattern="/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g"
+              pattern="^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$"
               value={ (values.email || values.email === '') ? values.email : currentUser.email }
               onChange={ handleChange }
             />

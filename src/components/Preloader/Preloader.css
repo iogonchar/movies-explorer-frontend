@@ -39,6 +39,10 @@
     }
 }
 
+.preloader-wrapper {
+  min-height: 50vh;
+}
+
 .preloader {
     display: flex;
     align-items: center;

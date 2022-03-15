@@ -19,14 +19,15 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [initialMovies, setInitialMovies] = useState([]);
-  const [filterMovies, setFilterMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [query, setQuery] = useState('');
-  const [savedMoviesQuery, setSavedMoviesQuery] = useState('');
-  const [savedMovies, setSavedMovies] = useState([]);
-  const [filterSavedMovies, setFilterSavedMovies] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupText, setPopupText] = useState('');
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [query, setQuery] = useState('');
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
+  const [querySaved, setQuerySaved] = useState('');
+  const [isRenderShortMovies, setIsRenderShortMovies] = useState(localStorage.getItem('moviesCheckbox') === 'true');
 
   const history = useHistory()
   const location = useLocation();
@@ -86,12 +87,17 @@ const App = () => {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('initialMovies');
     localStorage.removeItem('savedMovies');
+    localStorage.removeItem('filteredMovies');
+    localStorage.removeItem('moviesCheckbox');
+    localStorage.removeItem('moviesQuery');
     setIsLoggedIn(false);
     setCurrentUser({});
-    setFilterMovies([]);
-    setSavedMovies([]);
-    setFilterSavedMovies([]);
     setInitialMovies([]);
+    setSavedMovies([]);
+    setQuery('');
+    setFilteredMovies([]);
+    setFilteredSavedMovies([]);
+    setQuerySaved('');
 
     history.push('/')
   }
@@ -112,7 +118,6 @@ const App = () => {
       })
   }
 
-  // ----------------------------------------
   const getInitialMovies = () => {
     moviesApi.getMovies()
       .then((res) => {
@@ -132,90 +137,22 @@ const App = () => {
       })
   }
 
-  const getSavedMovies = () => {
-    api.getMovies()
-      .then((movies) => {
-        setSavedMovies(movies);
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-
-  const filter = (movies, query) => {
+  const filter = (movies, query, saveFilterMovies) => {
     if (query) {
-      const regex = new RegExp(query, 'i')
       const filterMovies = movies.filter((item) => {
-        return (regex.test(item.nameRU) || regex.test(item.nameEN));
+        return (
+          item.nameRU?.toLowerCase().includes(query.toLowerCase()) ||
+          item.nameEN?.toLowerCase().includes(query.toLowerCase())
+        )
       })
+
+      if (saveFilterMovies) {
+        localStorage.setItem('filteredMovies',  JSON.stringify(filterMovies));
+      }
 
       return filterMovies;
     }
     return []
-  }
-
-  const onSearchFilmsSubmit = (query) => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setQuery(query)
-      setFilterMovies(filter(initialMovies, query))
-      setIsLoading(false)
-    }, 1000)
-  }
-
-  const onSearchSavedFilmsSubmit = (query) => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setSavedMoviesQuery(query)
-      setFilterSavedMovies(filter(savedMovies, query))
-      setIsLoading(false)
-    }, 1000)
-  }
-
-  const addMovie = (movie) => {
-    api.addMovie(movie)
-      .then((res) => {
-        setSavedMovies([...savedMovies, { ...res, id: res.movieId }]);
-      })
-      .catch((err) => {
-        setPopupText('На сервере произошла ошибка');
-        setIsPopupOpen(true);
-      });
-  }
-
-  const deleteMovie = (movie) => {
-    const movieId = savedMovies.find((item) => {
-      return item._id === movie._id
-    })._id;
-
-    api.deleteMovie(movieId)
-      .then((res) => {
-        if (res) {
-          const updatedSavedMovies = savedMovies.filter((item) => {
-            return item._id !== movie._id
-          })
-
-          setSavedMovies(updatedSavedMovies);
-
-          if (savedMoviesQuery) {
-            setFilterSavedMovies(filter(updatedSavedMovies, savedMoviesQuery))
-          }
-        }
-      })
-      .catch((err) => {
-        setPopupText('На сервере произошла ошибка');
-        setIsPopupOpen(true);
-      });
-  }
-
-  const isMovieSaved = (movie) => savedMovies.some((item) => item.movieId === movie.id);
-
-  const onClickLike = (movie, isLiked) => {
-    if (isLiked) {
-      addMovie(movie)
-    } else {
-      deleteMovie(movie)
-    }
   }
 
   const onClosePopup = () => {
@@ -242,33 +179,92 @@ const App = () => {
         })
     }
 
-    if (JSON.parse(localStorage.getItem('initialMovies'))) {
-      setInitialMovies(JSON.parse(localStorage.getItem('initialMovies')));
-    } else {
-      getInitialMovies();
+    if (localStorage.getItem('moviesQuery')) {
+      setQuery(localStorage.getItem('moviesQuery'));
     }
-
-    getSavedMovies();
   }, []);
 
   useEffect(() => {
     if (isLoggedIn) {
       getInitialMovies();
       getSavedMovies();
+
+      if (JSON.parse(localStorage.getItem('initialMovies'))) {
+        setInitialMovies(JSON.parse(localStorage.getItem('initialMovies')));
+      } else {
+        getInitialMovies();
+      }
     }
   }, [isLoggedIn])
 
-  useEffect(() => {
-    localStorage.setItem('filterMovies', JSON.stringify(filterMovies))
-  }, [filterMovies])
-
-  const [isRenderShortMovies, setIsRenderShortMovies] = useState(false);
-
-  const onFilterShortMovies = (isCheckboxEnabled) => {
-    setIsRenderShortMovies(isCheckboxEnabled);
+  const getSavedMovies = () => {
+    api.getMovies()
+      .then((movies) => {
+        setSavedMovies(movies);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
+  const addMovie = (movie) => {
+    api.addMovie(movie)
+      .then((res) => {
+        setSavedMovies([...savedMovies, { ...res, id: res.movieId }]);
+      })
+      .catch((err) => {
+        setPopupText('На сервере произошла ошибка');
+        setIsPopupOpen(true);
+      });
+  }
+
+  const deleteMovie = (movie) => {
+    const movieId = savedMovies.find((item) => {
+      return item._id === movie._id
+    })._id;
+
+    api.deleteMovie(movieId)
+      .then((res) => {
+        if (res) {
+          const updatedSavedMovies = savedMovies.filter((item) => {
+            return item._id !== movie._id
+          })
+
+          setSavedMovies(updatedSavedMovies);
+          setFilteredSavedMovies(filter(updatedSavedMovies, querySaved))
+        }
+      })
+      .catch((err) => {
+        setPopupText('На сервере произошла ошибка');
+        setIsPopupOpen(true);
+      });
+  }
+
+  const onSearch = (query) => {
+    setIsLoading(true)
+    setTimeout(() => {
+      localStorage.setItem('moviesQuery',  query);
+      setQuery(query)
+      setFilteredMovies(filter(initialMovies, query, true))
+      setIsLoading(false)
+    }, 1000)
+  }
+
+  const renderMovies = localStorage.getItem('filteredMovies')
+    ? JSON.parse(localStorage.getItem('filteredMovies'))
+    : query ? filteredMovies : initialMovies
+
   const filterShortMovies = (movies) => movies.filter((movie) => movie.duration <= 40);
+  const renderSavedMovies = querySaved ? filteredSavedMovies : savedMovies;
+
+  const onSearchSaved = (querySaved) => {
+    setIsLoading(true)
+    setTimeout(() => {
+      setQuerySaved(querySaved)
+      setFilteredSavedMovies(filter(savedMovies, querySaved))
+      setIsLoading(false)
+    }, 1000)
+  }
 
   return (
     <div className="app">
@@ -283,25 +279,29 @@ const App = () => {
             path="/movies"
             isLoggedIn={ isLoggedIn }
             isLoading={ isLoading }
-            onSearchSubmit={ onSearchFilmsSubmit }
-            onClickLike={ onClickLike }
-            movies={ filterMovies }
-            isMovieSaved={ isMovieSaved }
             component={ Movies }
             isRenderShortMovies={ isRenderShortMovies }
-            onFilterShortMovies={ onFilterShortMovies }
+            setIsRenderShortMovies={ setIsRenderShortMovies }
             filterShortMovies={ filterShortMovies }
+            deleteMovie={ deleteMovie }
+            addMovie={ addMovie }
+            savedMovies={ savedMovies }
+            onSearch={ onSearch }
+            movies={ renderMovies }
+            query={ query }
           />
 
           <ProtectedRoute
             path="/saved-movies"
             isLoggedIn={ isLoggedIn }
             isLoading={ isLoading }
-            onSearchSubmit={ onSearchSavedFilmsSubmit }
-            onClickLike={ onClickLike }
-            movies={ savedMoviesQuery && filterSavedMovies.length !== 0 ? filterSavedMovies : savedMovies }
-            isMovieSaved={ isMovieSaved }
             component={ SavedMovies }
+            getSavedMovies={ getSavedMovies }
+            deleteMovie={ deleteMovie }
+            savedMovies={ savedMovies }
+            onSearch={ onSearchSaved }
+            movies={ renderSavedMovies }
+            setQuerySaved={ setQuerySaved }
           />
 
           <ProtectedRoute

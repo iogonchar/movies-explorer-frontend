@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import './MoviesCard.css';
 import remove from '../../images/remove.svg';
 import liked from '../../images/liked.svg';
 import notLiked from '../../images/not-liked.svg';
 
 const MoviesCard = ({ isSavedMovies, movie, onClickLike, isMovieSaved  }) => {
-  const { nameRU, duration, trailer, image } = movie;
+  const { nameRU, duration, trailerLink, image } = movie;
 
   const getDuration = (duration) => {
     const hours = Math.trunc(duration / 60)
@@ -25,7 +24,7 @@ const MoviesCard = ({ isSavedMovies, movie, onClickLike, isMovieSaved  }) => {
 
   return (
     <div className="card">
-      <a href={ trailer } target="_blank">
+      <a href={ trailerLink } target="_blank">
         <img className="card__img" src={ image } alt="Постер"/>
       </a>
       <div className="card-description">

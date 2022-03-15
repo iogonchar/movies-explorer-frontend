@@ -55,7 +55,7 @@ const Register = ({ onRegisterSubmit }) => {
             placeholder="Введите E-mail"
             minLength="5"
             maxLength="100"
-            pattern="/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g"
+            pattern="^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$"
             value={ values.email || '' }
             errorText={ errors.email }
             onChange={ handleChange }
